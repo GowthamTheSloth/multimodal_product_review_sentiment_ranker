@@ -1,3 +1,13 @@
-data/raw/*.csv
-data/processed/*.csv
+# Large datasets
+data/raw/
+data/images/
+
+# Trained model checkpoints
+bert_results/
+
+# Python cache
 __pycache__/
+*.pyc
+
+# Generated processed datasets
+data/processed/*.csv
