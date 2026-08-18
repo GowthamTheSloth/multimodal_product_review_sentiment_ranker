@@ -1,13 +1,25 @@
-# Large datasets
-data/raw/
-data/images/
+*.pt
+*.joblib
 
-# Trained model checkpoints
-bert_results/
+.cache/
 
-# Python cache
 __pycache__/
 *.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
 
-# Generated processed datasets
-data/processed/*.csv
+.ipynb_checkpoints/
+
+mlruns/
+mlflow.db
+
+.DS_Store
+Thumbs.db
+.vscode/
+
+bert_results/
+saved_model/
+logs/
