@@ -2,6 +2,7 @@ import os
 import torch
 import numpy as np
 import pandas as pd
+import mlflow
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import ndcg_score
@@ -124,6 +125,28 @@ print(f"Evaluable pairs sampled:    {len(idx_a)} (out of {n_pairs} sampled, ties
 print(f"NDCG (full test list):      {ndcg_full:.4f}")
 print(f"NDCG@10:                    {ndcg_at_10:.4f}")
 print(f"Pairwise ranking accuracy:  {pairwise_accuracy:.4f}")
+
+# ----- MLflow tracking -----
+mlflow.set_experiment("helpfulness_ranking")
+
+with mlflow.start_run(run_name="bert_metadata_xgb_ranker"):
+    mlflow.log_param("feature_set", "BERT + metadata")
+    mlflow.log_param("embedding_dim", 768)
+    mlflow.log_param("metadata_features", "text_length,rating,rating_extremity,verified_purchase")
+    mlflow.log_param("objective", "rank:pairwise")
+    mlflow.log_param("n_estimators", 200)
+    mlflow.log_param("max_depth", 4)
+    mlflow.log_param("learning_rate", 0.05)
+    mlflow.log_param("test_size", 0.2)
+    mlflow.log_param("random_state", 42)
+
+    mlflow.log_metric("ndcg_full", ndcg_full)
+    mlflow.log_metric("ndcg_at_10", ndcg_at_10)
+    mlflow.log_metric("pairwise_accuracy", pairwise_accuracy)
+    mlflow.log_metric("test_samples", len(X_test))
+    mlflow.log_metric("evaluable_pairs", len(idx_a))
+
+    print("\nMLflow run logged successfully.")
 
 print("\nFor reference, a random/untrained ranker's expected pairwise accuracy is ~0.50.")
 
