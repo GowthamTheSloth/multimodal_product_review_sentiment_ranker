@@ -1,0 +1,36 @@
+﻿# Git and DVC
+.git
+.gitignore
+.dvc
+.dvcignore
+*.dvc
+
+# Large data and training artifacts
+data/
+mlruns/
+mlflow.db
+bert_results/
+saved_model/
+logs/
+
+# Python / test caches and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# IDE and OS metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Do NOT ignore the models directory or production weights:
+!models/
+!models/sentiment_bert_lr.joblib
+!models/helpfulness_ranker.json
